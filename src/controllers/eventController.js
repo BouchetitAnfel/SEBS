@@ -86,11 +86,20 @@ const deleteEvent = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
-
+// GET /api/events/my/list
+const getMyEvents = async (req, res) => {
+    try {
+        const events = await eventService.getMyEvents(req.user._id);
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 module.exports = {
     createEvent,
     getAllEvents,
     getEventById,
     updateEvent,
     deleteEvent,
+    getMyEvents,
 };

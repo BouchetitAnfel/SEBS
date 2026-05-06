@@ -120,7 +120,18 @@ const cancelBooking = async (bookingId, userId, userRole) => {
 
     return booking;
 };
+// Get all bookings for events owned by an organizer
+const getOrganizerBookings = async (organizerId) => {
+    // First, find all events by this organizer
+    const events = await Event.find({ organizer: organizerId }).select('_id');
+    const eventIds = events.map(e => e._id);
 
+    // Then, find all bookings for those events
+    return await Booking.find({ event: { $in: eventIds } })
+        .populate('user', 'name email')
+        .populate('event', 'title date')
+        .sort({ createdAt: -1 });
+};
 // Get all bookings of the current user
 
 const getMyBookings = async (userId) => {
@@ -180,4 +191,5 @@ module.exports = {
     getMyBookings,
     getBookingById,
     getTicketPath,
+    getOrganizerBookings,
 };

@@ -79,6 +79,11 @@ const deleteEvent = async (eventId, userId, userRole) => {
     await event.deleteOne();
     return { message: 'Event deleted successfully' };
 };
+// Get all events created by a specific organizer
+const getMyEvents = async (organizerId) => {
+    return await Event.find({ organizer: organizerId })
+        .sort({ createdAt: -1 });
+};
 
 module.exports = {
     createEvent,
@@ -86,4 +91,5 @@ module.exports = {
     getEventById,
     updateEvent,
     deleteEvent,
+    getMyEvents,
 };

@@ -74,10 +74,20 @@ const downloadTicket = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+// GET /api/bookings/organizer/list
+const getOrganizerBookings = async (req, res) => {
+    try {
+        const bookings = await bookingService.getOrganizerBookings(req.user._id);
+        res.status(200).json(bookings);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 module.exports = {
     createBooking,
     cancelBooking,
     getMyBookings,
     getBookingById,
     downloadTicket,
+    getOrganizerBookings,
 };

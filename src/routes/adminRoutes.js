@@ -3,8 +3,6 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const { protect, authorize } = require('../middlewares/authMiddleware');
 
-// Apply both middlewares to ALL admin routes
-// "Apply once at the top" pattern — cleaner than repeating on every route
 router.use(protect, authorize('admin'));
 
 // Statistics
