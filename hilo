@@ -1,0 +1,6 @@
+the mental model so far:
+- when a request comes to server,
+  → server.js boots everything.
+  → app.js decides which route handles it.
+  → eventually a controller talks to a model .
+  → MongoDB stores or returns data.
